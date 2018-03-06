@@ -1,0 +1,22 @@
+
+/* Product details */
+
+.featurette-image {
+    width: 100%;
+  }
+  
+.container {
+    padding:0px !important;
+    margin-top: -50px;
+    }
+
+.row .featurette {
+    align-content: center !important;
+    justify-content: center !important;
+    align-items: center !important;
+    justify-items: center !important;
+}
+
+.featurette-heading {
+    margin-top: 0rem !important;
+}

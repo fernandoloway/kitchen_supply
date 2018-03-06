@@ -1,0 +1,41 @@
+[
+    {
+        "id": 1,
+        "ctgName": "Daging",
+        "ctgDesc": "Perayaan akhir tahun akan segera tiba. Hidangkan sajian lezat untuk keluarga besar dengan bahan utama daging ayam atau sapi agar semakin meriah!",
+        "ctgBg": "/images/category_bg/bg_daging.png"
+    },
+    {
+        "id": 2,
+        "ctgName": "Seafood",
+        "ctgDesc": "Seafood terbaik di Indonesia"
+    },
+    {
+        "id": 3,
+        "ctgName": "Sayuran & Kacang"
+    },
+    {
+        "id": 4,
+        "ctgName": "Buah"
+    },
+    {
+        "id": 5,
+        "ctgName": "Biji-bijian"
+    },
+    {
+        "id": 6,
+        "ctgName": "Susu"
+    },
+    {
+        "id": 7,
+        "ctgName": "Kopi & Teh"
+    },
+    {
+        "id": 8,
+        "ctgName": "Roti"
+    },
+    {
+        "id": 9,
+        "ctgName": "Tepung & Mentega"
+    }
+]
