@@ -1,22 +1,13 @@
 import React, { Component } from 'react';
-// import '../styles/Header.css';
-
-import { Link, Route, Router, Redirect } from "react-router-dom";
-
-
+import { Link } from "react-router-dom";
 import poster_daging from '../assets/poster/meats.jpg';
 import poster_buah from '../assets/poster/fruits.jpg';
 import poster_truk from '../assets/poster/deliverytruck.jpg';
-
-
-
 
 class Main extends Component {
     render() {
         return (
             <div className="Main">
-
-
                 <main role="main">
 
                     <div id="myCarousel" className="carousel slide" data-ride="carousel">
@@ -33,7 +24,7 @@ class Main extends Component {
                                         <h1>Uncompromised Quality Meats.</h1>
                                         <p>Meats are not created equal. We picked the best for you and your business. We have various grade of meats.</p>
                                         <p>
-                                        <Link to='/category/1' ><a className="btn btn-lg btn-primary" role="button">Browse</a></Link>
+                                        <Link to='/category/1' className="btn btn-lg btn-primary" role="button" >Browse</Link>
                                         </p>
                                     </div>
                                 </div>

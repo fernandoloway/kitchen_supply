@@ -5,9 +5,9 @@
     width: 100%;
   }
   
-.container {
+ #containerProductDetail {
     padding:0px !important;
-    margin-top: -50px;
+    margin-top: 5rem;
     }
 
 .row .featurette {

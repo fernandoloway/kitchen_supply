@@ -7,6 +7,7 @@ class Footer extends Component {
             <div className="Footer">
 
                 <footer className="container">
+                    <hr/>
                     <p className="float-right">
                         <a href="#">Back to top</a>
                     </p>

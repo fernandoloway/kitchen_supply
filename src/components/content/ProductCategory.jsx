@@ -1,73 +1,86 @@
 import React, { Component } from 'react';
-import { Link, Route, Router, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
+import axios from 'axios';
 
-import '../../styles/category.css';
-// import '../../styles/style.css';
+import '../../styles/ProductCategory.css';
+import { TiLocationOutline, TiBookmark } from 'react-icons/lib/ti';
 
-import productJsonData from "../../json/product.json"
-import categoryJsonData from "../../json/prodCategory.json"
 
 class ProductCategory extends Component {
-    // constructor() {
-    //     super();
-    //     this.state = {
-    //         data: [] // sebaiknya langsung dibuat arraynya atau string kosong untuk menghindari error pada fungsi .map karena asynchronus
-    //     };
-    // }
+    constructor(){
+        super();
+        this.state={products:[], category:{}}
+    }
 
-    // componentDidMount() { // yang pertama kali muncul taruh di did mount, selain itu alasannnya karena hanya akan dijalankan di client
-    //     this.setState = ({ data: productJsonData })
-    // };
+    fetchData(id){
+        var url='http://localhost:7000/api/product/cat/'+id;
+        axios.get(url)
+            .then((res) => {
+                this.setState({products: res.data.products, category: res.data.category})
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
 
-// <link to={`/${id}`}>Produk1</Link>
+    componentDidMount(){
+        this.fetchData(this.props.idCategory)
+    }
+
+    componentWillReceiveProps(newProps){
+        const currentId = this.props.idCategory
+        const nextId = newProps.idCategory
+    
+        if (currentId !== nextId) {
+            this.fetchData(nextId)
+        }
+    }
+ 
     render() {
 
-        // var idClick="1"
-
-        // function CatchId(x){
-        //     idClick=x
-        //     console.log(idClick)
-        // }
-
-        // <Link to='/product/10002'>miaw</Link>
-    
-
-        let search = keyword => productJsonData.filter(x => x.prodCtg == keyword).map((x, i) => {
-            
+        var showList = this.state.products.map(x => {
             return (
-                <div key={i} className="col-md-4">
+                
+                <div className="col-md-4" key={x.id}>
                     <div className="card mb-4 box-shadow">
-                        {/* <Link to={`/product/${x.id}`}> */}
-                        <Link to={'/product/' + x.id}>
-                            <img className="card-img-top" src={x.prodImg} alt="gambar"/>
-                            <div className="card-body">
-                                <h5 className="card-title">{x.prodName}</h5>
-                                <h6 className="card-subtitle mb-2 text-muted">Rp. {x.prodPrice} / {x.prodUnit}</h6>
+                        <Link to={'/product/'+x.id}>
+                        <img className="card-img-top" alt="No Image" style={{height: "225px", width: "100%", display: "block"}} src={x.prod_image_url} data-holder-rendered="true"/>
+                        </Link>   
+                        <div className="card-body">
+                            <h5 className="card-title">{x.product_name}</h5>
+                            <h6 className="card-subtitle mb-2 text-muted">Rp. {x.price} / {x.stock_unit}</h6>
+                            
+                            <div className="d-flex justify-content-between align-items-end">
+                                <div className="btn-group">
+                                    <button type="button" className="btn btn-sm btn-outline-secondary">Beli</button>
+                                    <button type="button" className="btn btn-sm btn-outline-secondary"><TiBookmark /></button>
+                                </div>
+
+                                <div className="d-flex flex-column justify-content-end align-items-end">
+                                    <small className="text-muted" style={{fontSize:"70%"}}>{x.vendor_name} </small>
+                                    <div>
+                                        <TiLocationOutline />
+                                        <small className="text-muted" style={{fontSize:"70%"}}>{x.city} </small>
+                                    </div>
+                                </div>  
                             </div>
-                        </Link>
-                        <p className="card-text"></p>
-                        <div className="d-flex justify-content-between align-items-center">
-                            <div className="btn-group">
-                                <button type="button" className="btn btn-sm btn-outline-secondary">Tandai</button>
-                                <button type="button" className="btn btn-sm btn-outline-secondary">Beli</button>
-                                <small className="text-muted">22 mins</small>
-                            </div>
+
                         </div>
                     </div>
                 </div>
+
             )
         })
-        let showList = search(this.props.idCategory)
 
-        let searchCtg = keyword => categoryJsonData.filter(x => x.id == keyword) // == number === string
 
-        let showCtg= searchCtg (this.props.idCategory)[0]
+
+        // let searchCtg = keyword => categoryJsonData.filter(x => x.id == keyword) // == number === string
+
+        // let showCtg= searchCtg (this.props.idCategory)[0]
 
         let styles={
-            backgroundImage: `url(${showCtg.ctgBg})`
+            backgroundImage: `url(${this.state.category.cat_bg_img_url})`
         }
-        console.log("gambar")
-        console.log(styles)
 
         return (
             <div className="Main">
@@ -76,8 +89,8 @@ class ProductCategory extends Component {
 
                     <section className="jumbotron text-center" style={styles}>
                         <div className="container">
-                            <h1 className="jumbotron-heading">{showCtg.ctgName}</h1>
-                            <p className="lead text-muted">{showCtg.ctgDesc}</p>
+                            <h1 className="jumbotron-heading">{this.state.category.cat_name}</h1>
+                            <p className="lead text-muted">{this.state.category.cat_desc}</p>
                             <p>
                                 <a href="#" className="btn btn-primary my-2">Tombol</a>
                                 <a href="#" className="btn btn-secondary my-2">Tombol 2</a>
@@ -89,7 +102,9 @@ class ProductCategory extends Component {
                         <div className="container">
 
                             <div className="row">
+
                                 {showList}
+
                             </div>
                         </div>
                     </div>
@@ -103,3 +118,11 @@ class ProductCategory extends Component {
 
 
 export default ProductCategory;
+
+        // let search = keyword => productJsonData.filter(x => x.prodCtg == keyword).map((x, i) => {
+            
+        //     return (
+
+        //     )
+        // })
+        // let showList = search(this.props.idCategory)
